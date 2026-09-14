@@ -14,7 +14,7 @@
 
 ## 내용 수정하는 법
 
-1. `https://ldy82468246-ux.github.io/admin/` 접속
+1. `https://leedongyun.com/admin/` 접속
 2. 처음 한 번만 GitHub 토큰 연결 (페이지 안에 순서 안내가 있음)
 3. 폼에서 고치고 **저장 · 배포** → 1~2분 뒤 사이트 반영
 

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>관리 · 이동윤</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#fff;--fg:#1f2328;--mute:#59636e;--line:#d1d9e0;--soft:#f6f8fa;--link:#0969da;--ok:#1a7f37;--bad:#cf222e;--warn:#9a6700;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","Pretendard Variable",Pretendard,"Noto Sans KR",Helvetica,Arial,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mute:#8d96a0;--line:#30363d;--soft:#161b22;--link:#4493f8;--ok:#3fb950;--bad:#f85149;--warn:#d29922}}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);font-size:14px;color:var(--fg);background:var(--bg);line-height:1.5;height:100vh;display:flex;flex-direction:column}
+a{color:var(--link)}
+button{font:inherit;cursor:pointer}
+input,textarea,select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--link);outline-offset:-1px;border-color:transparent}
+textarea{resize:vertical;min-height:72px}
+label{display:block;font-size:12.5px;color:var(--mute);margin:10px 0 4px}
+label:first-child{margin-top:0}
+
+.top{display:flex;align-items:center;gap:12px;padding:0 16px;height:50px;border-bottom:1px solid var(--line);background:var(--soft);flex:none}
+.top b{font-weight:600}
+.top .st{color:var(--mute);font-size:13px;margin-right:auto}
+.top .st.ok{color:var(--ok)}.top .st.bad{color:var(--bad)}.top .st.warn{color:var(--warn)}
+.b{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:5px 12px;color:var(--fg)}
+.b:hover{border-color:var(--mute)}
+.b.p{background:var(--ok);border-color:var(--ok);color:#fff;font-weight:600}
+.b.p:disabled{opacity:.5;cursor:not-allowed}
+.b.s{padding:2px 8px;font-size:12.5px}
+.b.d{color:var(--bad)}
+
+.body{flex:1;display:grid;grid-template-columns:minmax(380px,520px) 1fr;min-height:0}
+.ed{overflow:auto;border-right:1px solid var(--line);padding:16px 16px 60px}
+.pv{background:var(--soft);display:flex;flex-direction:column;min-height:0}
+.pv .bar{padding:6px 12px;font-size:12px;color:var(--mute);border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.pv iframe{flex:1;border:0;width:100%;background:#fff}
+
+details{border:1px solid var(--line);border-radius:8px;margin-bottom:10px;background:var(--bg)}
+summary{padding:10px 12px;font-weight:600;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"▸";color:var(--mute);font-size:12px}
+details[open]>summary:before{content:"▾"}
+summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
+.sec{padding:4px 12px 12px;border-top:1px solid var(--line)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+.item{border:1px solid var(--line);border-radius:6px;padding:10px;margin-top:8px;background:var(--soft)}
+.item .hd{display:flex;gap:6px;align-items:center;margin-bottom:2px}
+.item .hd .ttl{flex:1;font-weight:500;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .bd{display:none}
+.item.open .bd{display:block}
+.add{margin-top:8px;width:100%;border-style:dashed}
+
+.setup{padding:14px;border:1px solid var(--warn);border-radius:8px;background:var(--soft);margin-bottom:14px}
+.setup h3{margin:0 0 6px;font-size:14px}
+.setup ol{margin:6px 0 10px 18px;padding:0;color:var(--mute)}
+.setup code{font-family:var(--mono);font-size:12px;background:var(--bg);padding:1px 4px;border-radius:3px}
+.tokrow{display:flex;gap:6px}
+.hint{font-size:12px;color:var(--mute);margin-top:4px}
+#raw{font-family:var(--mono);font-size:12px;min-height:320px}
+
+@media(max-width:900px){.body{grid-template-columns:1fr}.pv{display:none}.ed{border-right:0}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <b>관리 페이지</b>
+  <span class="st" id="st">불러오는 중…</span>
+  <button class="b" id="btn-preview-mobile" title="미리보기 폭 전환">📱</button>
+  <button class="b" id="btn-reload">다시 불러오기</button>
+  <button class="b" id="btn-token">토큰</button>
+  <button class="b p" id="btn-save" disabled>저장 · 배포</button>
+</div>
+
+<div class="body">
+<div class="ed">
+
+  <div class="setup" id="setup" hidden>
+    <h3>처음 한 번: GitHub 토큰 연결</h3>
+    <ol>
+      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> 열기 (Fine-grained token)</li>
+      <li>Token name: 아무거나 (예: <code>homepage-admin</code>), Expiration: 원하는 기간 (최대 1년, 만료되면 다시 발급)</li>
+      <li>Repository access → <b>Only select repositories</b> → <code id="repo-name"></code> 선택</li>
+      <li>Permissions → Repository permissions → <b>Contents</b> → <b>Read and write</b></li>
+      <li>Generate token → 나오는 <code>github_pat_…</code> 문자열을 아래에 붙여넣기</li>
+    </ol>
+    <div class="tokrow"><input id="tok" type="password" placeholder="github_pat_…" autocomplete="off"><button class="b" id="tok-save">연결</button></div>
+    <div class="hint">토큰은 이 브라우저(localStorage)에만 저장됩니다. 다른 컴퓨터에서는 다시 붙여넣어야 해요.</div>
+  </div>
+
+  <div id="forms"></div>
+
+  <details>
+    <summary>고급: JSON 직접 편집 <small>잘 모르면 건드리지 마세요</small></summary>
+    <div class="sec">
+      <textarea id="raw" spellcheck="false"></textarea>
+      <div style="display:flex;gap:6px;margin-top:8px"><button class="b" id="raw-apply">JSON → 폼에 적용</button><button class="b" id="raw-refresh">폼 → JSON 새로고침</button></div>
+      <div class="hint" id="raw-msg"></div>
+    </div>
+  </details>
+</div>
+
+<div class="pv">
+  <div class="bar">미리보기 <span style="margin-left:auto">저장 전 화면입니다</span></div>
+  <iframe id="pv" src="../index.html?preview"></iframe>
+</div>
+</div>
+
+<script>
+(function(){
+  // ---------- 저장소 설정 ----------
+  var host=location.hostname, m=host.match(/^([^.]+)\.github\.io$/);
+  var OWNER=m?m[1]:'ldy82468246-ux', REPO=m?host:'ldy82468246-ux.github.io', BRANCH='main', PATH='data.json';
+  var API='https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+PATH;
+  document.getElementById('repo-name').textContent=OWNER+'/'+REPO;
+
+  var data=null, sha=null, dirty=false, token=localStorage.getItem('gh_token')||'';
+  var $=function(id){return document.getElementById(id)};
+  var st=$('st');
+  function status(msg,cls){st.textContent=msg;st.className='st '+(cls||'')}
+  function b64enc(s){return btoa(unescape(encodeURIComponent(s)))}
+  function b64dec(s){return decodeURIComponent(escape(atob(s.replace(/\n/g,''))))}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+  // ---------- 토큰 ----------
+  function showSetup(v){$('setup').hidden=!v}
+  $('btn-token').onclick=function(){showSetup($('setup').hidden);$('tok').value=''};
+  $('tok-save').onclick=function(){var t=$('tok').value.trim();if(!t)return;token=t;localStorage.setItem('gh_token',t);showSetup(false);load()};
+
+  // ---------- 불러오기 ----------
+  function load(){
+    status('불러오는 중…');
+    if(token){
+      fetch(API+'?ref='+BRANCH,{headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json'}})
+      .then(function(r){if(!r.ok)throw new Error(r.status===401?'토큰이 잘못됐거나 만료됐어요':r.status===404?'저장소/파일을 찾을 수 없어요 (토큰 권한 확인)':'GitHub 오류 '+r.status);return r.json()})
+      .then(function(j){sha=j.sha;data=JSON.parse(b64dec(j.content));dirty=false;build();status('GitHub에서 불러옴 · 수정 후 저장하세요','ok');$('btn-save').disabled=false})
+      .catch(function(e){status(e.message,'bad');showSetup(true);loadLocal()});
+    }else{showSetup(true);loadLocal()}
+  }
+  function loadLocal(){
+    fetch('../data.json?'+Date.now()).then(function(r){return r.json()}).then(function(j){data=j;build();if(!token)status('토큰이 없어 읽기 전용입니다 (위에서 연결)','warn')}).catch(function(){status('data.json을 읽을 수 없어요','bad')});
+  }
+  $('btn-reload').onclick=function(){if(dirty&&!confirm('저장하지 않은 변경이 사라집니다. 계속할까요?'))return;load()};
+
+  // ---------- 저장 ----------
+  $('btn-save').onclick=function(){
+    if(!token||!sha){status('토큰이 필요해요','bad');showSetup(true);return}
+    var d=new Date(),pad=function(n){return (n<10?'0':'')+n};
+    data.updated=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+    var body={message:'content: update via admin ('+data.updated+')',content:b64enc(JSON.stringify(data,null,2)+'\n'),sha:sha,branch:BRANCH};
+    $('btn-save').disabled=true;status('저장 중…');
+    fetch(API,{method:'PUT',headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json().then(function(j){return{ok:r.ok,s:r.status,j:j}})})
+    .then(function(x){
+      if(!x.ok){if(x.s===409){throw new Error('다른 곳에서 먼저 수정됐어요. "다시 불러오기" 후 재시도')}throw new Error((x.j&&x.j.message)||('오류 '+x.s))}
+      sha=x.j.content.sha;dirty=false;
+      status('저장됨 · 1~2분 뒤 사이트에 반영돼요 → ','ok');
+      var a=document.createElement('a');a.href='https://'+REPO+'/';a.target='_blank';a.textContent='사이트 열기';st.appendChild(a);
+    })
+    .catch(function(e){status(e.message,'bad')})
+    .then(function(){$('btn-save').disabled=false});
+  };
+  window.addEventListener('beforeunload',function(e){if(dirty){e.preventDefault();e.returnValue=''}});
+
+  // ---------- 미리보기 ----------
+  var pv=$('pv'),pvTimer;
+  function preview(){clearTimeout(pvTimer);pvTimer=setTimeout(function(){try{pv.contentWindow.postMessage({type:'preview',data:data},'*')}catch(e){}},250)}
+  pv.addEventListener('load',preview);
+  var mob=false;$('btn-preview-mobile').onclick=function(){mob=!mob;pv.style.width=mob?'400px':'100%';pv.style.margin=mob?'0 auto':'0'};
+  function changed(){dirty=true;preview();if(token&&sha)status('수정됨 · 저장 안 됨','warn')}
+
+  // ---------- 폼 ----------
+  function field(label,val,onInput,opts){
+    opts=opts||{};
+    var l=document.createElement('label');l.textContent=label;
+    var i=document.createElement(opts.area?'textarea':'input');
+    if(opts.type)i.type=opts.type;if(opts.ph)i.placeholder=opts.ph;
+    i.value=val==null?'':val;
+    i.addEventListener('input',function(){onInput(i.value);changed()});
+    var w=document.createElement('div');w.appendChild(l);w.appendChild(i);return w;
+  }
+  function section(title,note,open){
+    var d=document.createElement('details');if(open)d.open=true;
+    d.innerHTML='<summary>'+esc(title)+(note?'<small>'+esc(note)+'</small>':'')+'</summary>';
+    var s=document.createElement('div');s.className='sec';d.appendChild(s);
+    $('forms').appendChild(d);return s;
+  }
+  function itemList(container,arr,labelFn,fieldsFn,newItem,afterChange){
+    function draw(){
+      container.innerHTML='';
+      arr.forEach(function(it,idx){
+        var box=document.createElement('div');box.className='item';
+        var hd=document.createElement('div');hd.className='hd';
+        var ttl=document.createElement('span');ttl.className='ttl';ttl.textContent=labelFn(it)||'(새 항목)';ttl.onclick=function(){box.classList.toggle('open')};
+        var up=document.createElement('button');up.className='b s';up.textContent='↑';up.title='위로';up.onclick=function(){if(idx>0){arr.splice(idx-1,0,arr.splice(idx,1)[0]);draw();changed()}};
+        var dn=document.createElement('button');dn.className='b s';dn.textContent='↓';dn.title='아래로';dn.onclick=function(){if(idx<arr.length-1){arr.splice(idx+1,0,arr.splice(idx,1)[0]);draw();changed()}};
+        var del=document.createElement('button');del.className='b s d';del.textContent='삭제';del.onclick=function(){if(confirm('이 항목을 삭제할까요?\n'+labelFn(it))){arr.splice(idx,1);draw();changed()}};
+        hd.appendChild(ttl);if(!afterChange){hd.appendChild(up);hd.appendChild(dn)}hd.appendChild(del);
+        var bd=document.createElement('div');bd.className='bd';
+        fieldsFn(it,bd,function(){ttl.textContent=labelFn(it)||'(새 항목)';if(afterChange)afterChange()});
+        box.appendChild(hd);box.appendChild(bd);container.appendChild(box);
+      });
+      var add=document.createElement('button');add.className='b add';add.textContent='+ 추가';
+      add.onclick=function(){arr.unshift(newItem());draw();changed();var f=container.querySelector('.item');if(f){f.classList.add('open');var i=f.querySelector('input');i&&i.focus()}};
+      container.appendChild(add);
+    }
+    draw();return draw;
+  }
+
+  function build(){
+    $('forms').innerHTML='';
+    data.profile=data.profile||{};data.about=data.about||[];data.interests=data.interests||[];
+    data.education=data.education||[];data.positions=data.positions||[];data.publications=data.publications||[];data.contact=data.contact||{};
+    var p=data.profile;
+
+    // 프로필
+    var s=section('프로필','왼쪽 사이드바',true);
+    var r=document.createElement('div');r.className='row2';
+    r.appendChild(field('이름',p.name,function(v){p.name=v}));r.appendChild(field('영문 이름',p.name_en,function(v){p.name_en=v}));s.appendChild(r);
+    s.appendChild(field('한 줄 소개',p.bio,function(v){p.bio=v},{area:true}));
+    s.appendChild(field('소속',p.affiliation,function(v){p.affiliation=v}));
+    r=document.createElement('div');r.className='row2';
+    r.appendChild(field('위치',p.location,function(v){p.location=v}));r.appendChild(field('이메일',p.email,function(v){p.email=v}));s.appendChild(r);
+    r=document.createElement('div');r.className='row3';
+    r.appendChild(field('GitHub 아이디',p.github,function(v){p.github=v}));
+    r.appendChild(field('ORCID 주소',p.orcid,function(v){p.orcid=v},{ph:'https://orcid.org/…'}));
+    r.appendChild(field('Google Scholar 주소',p.scholar,function(v){p.scholar=v},{ph:'https://scholar.google.com/…'}));s.appendChild(r);
+    s.appendChild(field('사진 경로',p.photo,function(v){p.photo=v},{ph:'images/profile.jpg'}));
+
+    // 소개
+    s=section('About · 소개','문단은 빈 줄로 구분');
+    s.appendChild(field('소개 글',data.about.join('\n\n'),function(v){data.about=v.split(/\n\s*\n/).map(function(t){return t.trim()}).filter(Boolean)},{area:true}));
+    s.appendChild(field('연구 관심 (쉼표로 구분)',data.interests.join(', '),function(v){data.interests=v.split(',').map(function(t){return t.trim()}).filter(Boolean)}));
+
+    // 학력 / 경력
+    function simpleFields(it,bd,upd){
+      bd.appendChild(field('기간',it.period,function(v){it.period=v;upd()},{ph:'2020.02 또는 2020 – present'}));
+      bd.appendChild(field('내용',it.title,function(v){it.title=v;upd()}));
+      bd.appendChild(field('부가 설명 (선택)',it.sub,function(v){it.sub=v},{ph:'학위논문 제목, 담당 과목 등'}));
+    }
+    function simpleLabel(it){return [it.period,it.title].filter(Boolean).join('  ·  ')}
+    function simpleNew(){return{period:'',title:'',sub:''}}
+    s=section('Education · 학력','위에서부터 표시 순서');
+    var c=document.createElement('div');s.appendChild(c);itemList(c,data.education,simpleLabel,simpleFields,simpleNew);
+    s=section('Positions · 경력','위에서부터 표시 순서');
+    c=document.createElement('div');s.appendChild(c);itemList(c,data.positions,simpleLabel,simpleFields,simpleNew);
+
+    // 논문
+    s=section('Publications · 논문','연도·월 기준으로 자동 정렬',true);
+    r=document.createElement('div');r.className='row2';
+    r.appendChild(field('목록 위 안내문',data.publications_note,function(v){data.publications_note=v}));
+    r.appendChild(field('처음에 보여줄 편수 (나머지는 접힘)',data.publications_visible,function(v){data.publications_visible=parseInt(v,10)||5},{type:'number'}));
+    s.appendChild(r);
+    c=document.createElement('div');s.appendChild(c);
+    function sortPubs(){data.publications.sort(function(a,b){return (b.year-a.year)||((b.month||0)-(a.month||0))})}
+    sortPubs();
+    var redraw=itemList(c,data.publications,
+      function(q){return (q.year||'????')+'.'+(q.month?(q.month<10?'0':'')+q.month:'??')+'  ·  '+(q.title||'')},
+      function(q,bd,upd){
+        var g=document.createElement('div');g.className='row3';
+        g.appendChild(field('연도',q.year,function(v){q.year=parseInt(v,10)||0;upd()},{type:'number'}));
+        g.appendChild(field('월',q.month,function(v){q.month=parseInt(v,10)||0;upd()},{type:'number'}));
+        var sel=document.createElement('div');sel.innerHTML='<label>종류</label>';
+        var se=document.createElement('select');['KCI','SCOPUS','review','book','other'].forEach(function(o){var op=document.createElement('option');op.value=o;op.textContent=o;se.appendChild(op)});
+        se.value=q.type||'KCI';se.onchange=function(){q.type=se.value;changed()};sel.appendChild(se);g.appendChild(sel);
+        bd.appendChild(g);
+        bd.appendChild(field('제목',q.title,function(v){q.title=v;upd()},{area:true}));
+        bd.appendChild(field('영문 제목',q.title_en,function(v){q.title_en=v},{area:true}));
+        g=document.createElement('div');g.className='row3';
+        g.appendChild(field('학술지',q.venue,function(v){q.venue=v}));
+        g.appendChild(field('권/호',q.volume,function(v){q.volume=v},{ph:'90 또는 12(2)'}));
+        g.appendChild(field('쪽',q.pages,function(v){q.pages=v},{ph:'5–38'}));
+        bd.appendChild(g);
+        g=document.createElement('div');g.className='row2';
+        g.appendChild(field('링크 (KCI/DOI, 선택)',q.url,function(v){q.url=v},{ph:'https://…'}));
+        g.appendChild(field('PDF 링크 (선택)',q.pdf,function(v){q.pdf=v},{ph:'files/paper.pdf 또는 https://…'}));
+        bd.appendChild(g);
+      },
+      function(){var d=new Date();return{year:d.getFullYear(),month:d.getMonth()+1,title:'',title_en:'',venue:'',volume:'',pages:'',type:'KCI',url:'',pdf:''}},
+      function(){/* 연도/월 바뀌면 정렬은 저장 시점에 */}
+    );
+    var sortBtn=document.createElement('button');sortBtn.className='b';sortBtn.style.marginTop='8px';sortBtn.textContent='연도·월 순으로 다시 정렬';sortBtn.onclick=function(){sortPubs();redraw();changed()};
+    s.appendChild(sortBtn);
+
+    // 연락처
+    s=section('Contact · 연락처');
+    s.appendChild(field('주소',data.contact.address,function(v){data.contact.address=v}));
+
+    $('raw').value=JSON.stringify(data,null,2);
+    preview();
+  }
+
+  // ---------- 고급 JSON ----------
+  $('raw-refresh').onclick=function(){$('raw').value=JSON.stringify(data,null,2);$('raw-msg').textContent='현재 폼 내용으로 갱신했어요'};
+  $('raw-apply').onclick=function(){try{data=JSON.parse($('raw').value);build();changed();$('raw-msg').textContent='적용됐어요'}catch(e){$('raw-msg').textContent='JSON 문법 오류: '+e.message}};
+
+  load();
+})();
+</script>
+</body>
+</html>

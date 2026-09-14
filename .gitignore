@@ -1,23 +1,12 @@
-# Ignore the contents of the _site directory and other cache directories
+# 로컬 작업용
+.claude/
+design-options/
+node_modules/
+.DS_Store
+
+# 예전 Jekyll 잔재 (혹시 남아 있으면)
 _site/
 .sass-cache/
-
-# Ignore the directory for local files during development
-local/
-
-# Ignore the Gemfile that is generated
-Gemfile.lock
-
-# Ignore files created by npm
-node_modules
-package-lock.json
-
-# Ignore the vendor file at root level and bundle for alternative installation
-/vendor/
 .bundle/
-
-# Ignore folders related to IDEs
-.vscode/
-
-# Ignore files created by MacOS
-.DS_Store
+Gemfile.lock
+vendor/

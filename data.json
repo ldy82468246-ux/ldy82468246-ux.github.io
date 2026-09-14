@@ -26,31 +26,41 @@
   ],
   "education": [
     {
-      "period": "2015",
+      "period": "2025",
       "title": "Ph.D. in Korean History, 부산대학교",
-      "sub": "Dissertation: 「학위논문 제목」"
+      "sub": "Dissertation: 「신라 聖骨·眞骨의 성립과 변화」"
     },
     {
-      "period": "20XX",
+      "period": "2018",
       "title": "M.A. in Korean History, 부산대학교",
-      "sub": "Thesis: 「학위논문 제목」"
+      "sub": "Thesis: 「신라 骨制의 변화와 ‘聖而眞骨’」"
     },
     {
-      "period": "20XX",
+      "period": "2016",
       "title": "B.A. in History, 부산대학교",
       "sub": ""
     }
   ],
   "positions": [
     {
-      "period": "20XX – present",
-      "title": "(직위), 인문사회융합인재양성사업단, 부산대학교",
+      "period": "2020.03. - 2022.02.",
+      "title": "조교, 부산대학교 사학과",
       "sub": ""
     },
     {
-      "period": "20XX – 20XX",
+      "period": "2025.09. – present",
+      "title": "전임연구원, 인문사회융합인재양성사업단, 부산대학교",
+      "sub": ""
+    },
+    {
+      "period": "2022 – present",
       "title": "Lecturer, 사학과, 부산대학교",
       "sub": "담당 과목: (과목명)"
+    },
+    {
+      "period": "2024.03. - 2025.04.",
+      "title": "상임연구원 겸 사무국장, (사)부경역사연구소",
+      "sub": ""
     }
   ],
   "publications_note": "Peer-reviewed journal articles (KCI). All single-authored.",

@@ -5,7 +5,7 @@
     "bio": "한국고대사 연구자. 신라의 골품제와 왕위 계승, 『삼국사기』의 서술 논리를 공부합니다.",
     "affiliation": "부산대학교 사학과 · 인문사회융합인재양성사업단",
     "location": "Busan, South Korea",
-    "email": "ldy82468246@gmail.com",
+    "email": "histolee@pusan.ac.kr",
     "github": "ldy82468246-ux",
     "orcid": "",
     "scholar": "",
@@ -15,33 +15,194 @@
     "부산대학교 사학과 · 인문사회융합인재양성사업단에 있습니다. 한국고대사, 그중에서도 신라사를 전공합니다.",
     "골품제의 형성과 변화, 여성 왕위계승의 배경, 그리고 『삼국사기』가 왕위 계승을 서술하는 논리를 주로 다뤄 왔습니다. 최근에는 관등제와 유민 편입, 재이(災異) 기사와 재해 대응처럼 국가 운영의 다른 면으로도 관심을 넓히고 있습니다."
   ],
-  "interests": ["한국고대사", "신라사", "골품제", "왕위계승", "『삼국사기』 사료비판", "관등제", "불교와 왕권"],
+  "interests": [
+    "한국고대사",
+    "신라사",
+    "골품제",
+    "왕위계승",
+    "『삼국사기』 사료비판",
+    "관등제",
+    "불교와 왕권"
+  ],
   "education": [
-    { "period": "20XX", "title": "Ph.D. in Korean History, 부산대학교", "sub": "Dissertation: 「학위논문 제목」" },
-    { "period": "20XX", "title": "M.A. in Korean History, 부산대학교", "sub": "Thesis: 「학위논문 제목」" },
-    { "period": "20XX", "title": "B.A. in History, 부산대학교", "sub": "" }
+    {
+      "period": "2015",
+      "title": "Ph.D. in Korean History, 부산대학교",
+      "sub": "Dissertation: 「학위논문 제목」"
+    },
+    {
+      "period": "20XX",
+      "title": "M.A. in Korean History, 부산대학교",
+      "sub": "Thesis: 「학위논문 제목」"
+    },
+    {
+      "period": "20XX",
+      "title": "B.A. in History, 부산대학교",
+      "sub": ""
+    }
   ],
   "positions": [
-    { "period": "20XX – present", "title": "(직위), 인문사회융합인재양성사업단, 부산대학교", "sub": "" },
-    { "period": "20XX – 20XX", "title": "Lecturer, 사학과, 부산대학교", "sub": "담당 과목: (과목명)" }
+    {
+      "period": "20XX – present",
+      "title": "(직위), 인문사회융합인재양성사업단, 부산대학교",
+      "sub": ""
+    },
+    {
+      "period": "20XX – 20XX",
+      "title": "Lecturer, 사학과, 부산대학교",
+      "sub": "담당 과목: (과목명)"
+    }
   ],
   "publications_note": "Peer-reviewed journal articles (KCI). All single-authored.",
   "publications_visible": 5,
   "publications": [
-    { "year": 2026, "month": 8, "title": "‘무자(無子)’와 ‘서(壻)’ ― 『삼국사기(三國史記)』 왕위계승 서술의 논리 ―", "title_en": "“Sonless”(無子) and “Son-in-Law”(壻): The Narrative Logic of Royal Succession in the Samguk sagi", "venue": "역사와 실학", "volume": "90", "pages": "5–38", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2026, "month": 8, "title": "『삼국사기』 신라본기 災異 記事와 신라 上古期의 災害 對應", "title_en": "The Calamity(災異) Records in the “Silla Annals” of the Samguk sagi and Disaster Response in Early Silla", "venue": "서강인문논총", "volume": "76", "pages": "107–141", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2026, "month": 8, "title": "신라의 백제‧고구려 유민 官等 사여와 차등적 편입", "title_en": "Differential Incorporation and the Granting of Official Ranks to Baekje and Goguryeo Refugees in Silla", "venue": "백제문화", "volume": "75", "pages": "59–84", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2026, "month": 7, "title": "신라 중고기말 불교 교리 적용과 왕위 계승", "title_en": "The Application of Buddhist Doctrine and Royal Succession in the Late Middle-Ancient Period of Silla", "venue": "한국민족문화", "volume": "94", "pages": "219–244", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2024, "month": 4, "title": "신라 중고기 여성 왕위계승과 聖･眞骨의 동향", "title_en": "Succession of Female Rulers in the Middle Period of the Silla Dynasty and the Trend of Sacred Bone(聖骨) and True Bone(眞骨)", "venue": "신라사학보", "volume": "60", "pages": "233–270", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2023, "month": 4, "title": "신라 善德王의 尊號 ‘聖祖皇姑’ 검토", "title_en": "Review of the Title of King Seon-deok(善德王) of Silla, ‘Seongjo-hwanggo(聖祖皇姑)’", "venue": "지역과 역사", "volume": "52", "pages": "77–108", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2021, "month": 12, "title": "신라 중고기 불교 사찰의 입지와 왕경 방어의 연관성", "title_en": "The Relationship between the Location of the Buddhist Temple in the Middle-Ancient Period (中古期) of Silla and the Defense of the Capital", "venue": "동아시아고대학", "volume": "64", "pages": "301–336", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2021, "month": 11, "title": "신라 상대 聖骨ㆍ眞骨 명칭과 신분의 우열", "title_en": "The Names of Sacred-gol(聖骨)ㆍTrue-gol(眞骨) and the Superiority and Inferiority of Status in the Early Period of Silla", "venue": "한국민족문화", "volume": "80", "pages": "239–268", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2021, "month": 10, "title": "신라 하대 處容의 관등 級干과 그의 실체", "title_en": "Cheoyong(處容)'s Rank, “Geupgan(級干)”, and His Substance in Late Silla", "venue": "지역과 역사", "volume": "49", "pages": "125–156", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2020, "month": 4, "title": "신라 지배집단의 국가 운영 원리를 追究하다 (김희만, 『신라의 왕권과 관료제』, 경인문화사, 2019)", "title_en": "Book review: Kim Heui-Man, Royal Authority(王權) and Bureaucracy(官僚制) of the Silla (Kyungin, 2019)", "venue": "지역과 역사", "volume": "46", "pages": "299–308", "type": "review", "url": "", "pdf": "" },
-    { "year": 2020, "month": 2, "title": "新羅 上代 왕실의 재생산 인식과 女性의 즉위 배경", "title_en": "Awareness of Reproduction of the Early Period of Silla Royal Family and the Background of the Women's Conquest", "venue": "한국민족문화", "volume": "74", "pages": "165–200", "type": "KCI", "url": "", "pdf": "" },
-    { "year": 2019, "month": 9, "title": "신라 骨制의 변화와 ‘聖而眞骨’", "title_en": "The Transformation of Silla's Gol System and ‘Seongijingol’", "venue": "역사와경계", "volume": "112", "pages": "139–182", "type": "KCI", "url": "", "pdf": "" }
+    {
+      "year": 2026,
+      "month": 8,
+      "title": "‘무자(無子)’와 ‘서(壻)’ ― 『삼국사기(三國史記)』 왕위계승 서술의 논리 ―",
+      "title_en": "“Sonless”(無子) and “Son-in-Law”(壻): The Narrative Logic of Royal Succession in the Samguk sagi",
+      "venue": "역사와 실학",
+      "volume": "90",
+      "pages": "5–38",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2026,
+      "month": 8,
+      "title": "『삼국사기』 신라본기 災異 記事와 신라 上古期의 災害 對應",
+      "title_en": "The Calamity(災異) Records in the “Silla Annals” of the Samguk sagi and Disaster Response in Early Silla",
+      "venue": "서강인문논총",
+      "volume": "76",
+      "pages": "107–141",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2026,
+      "month": 8,
+      "title": "신라의 백제‧고구려 유민 官等 사여와 차등적 편입",
+      "title_en": "Differential Incorporation and the Granting of Official Ranks to Baekje and Goguryeo Refugees in Silla",
+      "venue": "백제문화",
+      "volume": "75",
+      "pages": "59–84",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "title": "신라 중고기말 불교 교리 적용과 왕위 계승",
+      "title_en": "The Application of Buddhist Doctrine and Royal Succession in the Late Middle-Ancient Period of Silla",
+      "venue": "한국민족문화",
+      "volume": "94",
+      "pages": "219–244",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "title": "신라 중고기 여성 왕위계승과 聖･眞骨의 동향",
+      "title_en": "Succession of Female Rulers in the Middle Period of the Silla Dynasty and the Trend of Sacred Bone(聖骨) and True Bone(眞骨)",
+      "venue": "신라사학보",
+      "volume": "60",
+      "pages": "233–270",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2023,
+      "month": 4,
+      "title": "신라 善德王의 尊號 ‘聖祖皇姑’ 검토",
+      "title_en": "Review of the Title of King Seon-deok(善德王) of Silla, ‘Seongjo-hwanggo(聖祖皇姑)’",
+      "venue": "지역과 역사",
+      "volume": "52",
+      "pages": "77–108",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2021,
+      "month": 12,
+      "title": "신라 중고기 불교 사찰의 입지와 왕경 방어의 연관성",
+      "title_en": "The Relationship between the Location of the Buddhist Temple in the Middle-Ancient Period (中古期) of Silla and the Defense of the Capital",
+      "venue": "동아시아고대학",
+      "volume": "64",
+      "pages": "301–336",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2021,
+      "month": 11,
+      "title": "신라 상대 聖骨ㆍ眞骨 명칭과 신분의 우열",
+      "title_en": "The Names of Sacred-gol(聖骨)ㆍTrue-gol(眞骨) and the Superiority and Inferiority of Status in the Early Period of Silla",
+      "venue": "한국민족문화",
+      "volume": "80",
+      "pages": "239–268",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2021,
+      "month": 10,
+      "title": "신라 하대 處容의 관등 級干과 그의 실체",
+      "title_en": "Cheoyong(處容)'s Rank, “Geupgan(級干)”, and His Substance in Late Silla",
+      "venue": "지역과 역사",
+      "volume": "49",
+      "pages": "125–156",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2020,
+      "month": 4,
+      "title": "신라 지배집단의 국가 운영 원리를 追究하다 (김희만, 『신라의 왕권과 관료제』, 경인문화사, 2019)",
+      "title_en": "Book review: Kim Heui-Man, Royal Authority(王權) and Bureaucracy(官僚制) of the Silla (Kyungin, 2019)",
+      "venue": "지역과 역사",
+      "volume": "46",
+      "pages": "299–308",
+      "type": "review",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2020,
+      "month": 2,
+      "title": "新羅 上代 왕실의 재생산 인식과 女性의 즉위 배경",
+      "title_en": "Awareness of Reproduction of the Early Period of Silla Royal Family and the Background of the Women's Conquest",
+      "venue": "한국민족문화",
+      "volume": "74",
+      "pages": "165–200",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    },
+    {
+      "year": 2019,
+      "month": 9,
+      "title": "신라 骨制의 변화와 ‘聖而眞骨’",
+      "title_en": "The Transformation of Silla's Gol System and ‘Seongijingol’",
+      "venue": "역사와경계",
+      "volume": "112",
+      "pages": "139–182",
+      "type": "KCI",
+      "url": "",
+      "pdf": ""
+    }
   ],
   "contact": {
     "address": "부산대학교 사학과, 부산광역시 금정구 부산대학로 63번길 2"
-  }
+  },
+  "updated": "2026-09-14"
 }

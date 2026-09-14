@@ -1,5 +1,7 @@
 # ldy82468246-ux.github.io
 
+배포 주소: https://leedongyun.com
+
 이동윤 개인 홈페이지. 프레임워크 없이 HTML 한 장 + 데이터 파일 하나로 되어 있고, GitHub Pages로 배포됩니다.
 
 ## 파일

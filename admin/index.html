@@ -85,11 +85,16 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
       <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> 열기 (Fine-grained token)</li>
       <li>Token name: 아무거나 (예: <code>homepage-admin</code>), Expiration: 원하는 기간 (최대 1년, 만료되면 다시 발급)</li>
       <li>Repository access → <b>Only select repositories</b> → <code id="repo-name"></code> 선택</li>
-      <li>Permissions → Repository permissions → <b>Contents</b> → <b>Read and write</b></li>
+      <li>Permissions → <b>Add permissions</b> 버튼 → <b>Contents</b> 선택 → 오른쪽 드롭다운을 <b>Read and write</b>로 (Metadata가 같이 생기면 그대로 둠)</li>
       <li>Generate token → 나오는 <code>github_pat_…</code> 문자열을 아래에 붙여넣기</li>
     </ol>
     <div class="tokrow"><input id="tok" type="password" placeholder="github_pat_…" autocomplete="off"><button class="b" id="tok-save">연결</button></div>
     <div class="hint">토큰은 이 브라우저(localStorage)에만 저장됩니다. 다른 컴퓨터에서는 다시 붙여넣어야 해요.</div>
+    <div id="tok-cur" hidden style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line)">
+      <div class="hint" style="margin:0 0 6px">이 브라우저에 연결된 토큰: <code id="tok-mask"></code></div>
+      <div style="display:flex;gap:6px"><button class="b s" id="tok-copy">복사</button><button class="b s" id="tok-show">보기</button><button class="b s d" id="tok-clear">연결 해제</button></div>
+      <div class="hint" id="tok-msg"></div>
+    </div>
   </div>
 
   <div id="forms"></div>
@@ -127,9 +132,12 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 
   // ---------- 토큰 ----------
-  function showSetup(v){$('setup').hidden=!v}
+  function showSetup(v){$('setup').hidden=!v;$('tok-cur').hidden=!token;$('tok-mask').textContent=token?token.slice(0,11)+'…'+token.slice(-4):'';$('tok-msg').textContent=''}
   $('btn-token').onclick=function(){showSetup($('setup').hidden);$('tok').value=''};
   $('tok-save').onclick=function(){var t=$('tok').value.trim();if(!t)return;token=t;localStorage.setItem('gh_token',t);showSetup(false);load()};
+  $('tok-copy').onclick=function(){navigator.clipboard.writeText(token).then(function(){$('tok-msg').textContent='복사했어요. 다른 기기의 관리 페이지에 붙여넣으면 돼요.'},function(){$('tok-msg').textContent='복사가 막혔어요. "보기"를 눌러 직접 복사하세요.'})};
+  $('tok-show').onclick=function(){var m=$('tok-mask');if(m.textContent===token){showSetup(true);this.textContent='보기'}else{m.textContent=token;this.textContent='가리기'}};
+  $('tok-clear').onclick=function(){if(!confirm('이 브라우저에서 토큰을 지울까요? (GitHub 쪽 토큰은 그대로 남아요)'))return;token='';localStorage.removeItem('gh_token');sha=null;$('btn-save').disabled=true;showSetup(true);status('토큰이 없어 읽기 전용입니다 (위에서 연결)','warn')};
 
   // ---------- 불러오기 ----------
   function load(){

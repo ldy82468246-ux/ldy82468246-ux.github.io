@@ -138,7 +138,7 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
     function list(id,title,items){
       if(!items||!items.length)return '';
       return '<section id="'+id+'"><h2>'+title+'</h2><ul class="list">'+items.map(function(e){
-        return '<li><span class="d">'+esc(e.period)+'</span><span>'+esc(e.title)+(e.sub?'<span class="s">'+esc(e.sub)+'</span>':'')+'</span></li>'}).join('')+'</ul></section>';
+        return '<li><span class="d">'+esc(e.period)+'</span><span>'+esc(e.title)+(e.sub?'<span class="s">'+esc(e.sub).replace(/\n/g,'<br>')+'</span>':'')+'</span></li>'}).join('')+'</ul></section>';
     }
     h+=list('education','Education',d.education);
     h+=list('positions','Positions',d.positions);

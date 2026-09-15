@@ -186,7 +186,7 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
     opts=opts||{};
     var l=document.createElement('label');l.textContent=label;
     var i=document.createElement(opts.area?'textarea':'input');
-    if(opts.type)i.type=opts.type;if(opts.ph)i.placeholder=opts.ph;
+    if(opts.type)i.type=opts.type;if(opts.ph)i.placeholder=opts.ph;if(opts.rows){i.rows=opts.rows;i.style.minHeight='0'}
     i.value=val==null?'':val;
     i.addEventListener('input',function(){onInput(i.value);changed()});
     var w=document.createElement('div');w.appendChild(l);w.appendChild(i);return w;
@@ -248,7 +248,7 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
     function simpleFields(it,bd,upd){
       bd.appendChild(field('기간',it.period,function(v){it.period=v;upd()},{ph:'2020.02 또는 2020 – present'}));
       bd.appendChild(field('내용',it.title,function(v){it.title=v;upd()}));
-      bd.appendChild(field('부가 설명 (선택)',it.sub,function(v){it.sub=v},{ph:'학위논문 제목, 담당 과목 등'}));
+      bd.appendChild(field('부가 설명 (선택, 줄바꿈 가능)',it.sub,function(v){it.sub=v},{ph:'학위논문 제목, 담당 과목 등',area:true,rows:2}));
     }
     function simpleLabel(it){return [it.period,it.title].filter(Boolean).join('  ·  ')}
     function simpleNew(){return{period:'',title:'',sub:''}}

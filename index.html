@@ -229,7 +229,9 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
       '</ul>';
 
     var pubs=(d.publications||[]).slice().sort(function(a,b){return (b.year-a.year)||((b.month||0)-(a.month||0))});
-    pubs.forEach(function(q,i){q._i=i;q._kw=(q.keywords||[]).map(function(k){return String(k).trim()}).filter(Boolean)});
+    // data.json의 show_keywords가 true일 때만 주제어 구름·칩·필터를 보여준다
+    var showKw=d.show_keywords===true;
+    pubs.forEach(function(q,i){q._i=i;q._kw=showKw?(q.keywords||[]).map(function(k){return String(k).trim()}).filter(Boolean):[]});
     var cnt={},enOf={};
     pubs.forEach(function(q){q._kw.forEach(function(k,j){cnt[k]=(cnt[k]||0)+1;var e=(q.keywords_en||[])[j];if(!enOf[k]&&e)enOf[k]=e})});
     var words=Object.keys(cnt).map(function(k){return {t:k,c:cnt[k],en:enOf[k]||''}}).sort(function(a,b){return b.c-a.c||a.t.localeCompare(b.t,'ko')});

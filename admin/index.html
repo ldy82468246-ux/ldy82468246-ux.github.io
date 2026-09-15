@@ -263,6 +263,10 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
     r.appendChild(field('목록 위 안내문',data.publications_note,function(v){data.publications_note=v}));
     r.appendChild(field('처음에 보여줄 편수 (나머지는 접힘)',data.publications_visible,function(v){data.publications_visible=parseInt(v,10)||5},{type:'number'}));
     s.appendChild(r);
+    // 주제어 구름(Keywords) 표시 여부 — 끄면 구름·메뉴·논문 아래 주제어 칩이 모두 숨는다
+    var kwSel=document.createElement('div');kwSel.innerHTML='<label>Keywords 주제어 구름 표시</label>';
+    var kwSe=document.createElement('select');[['no','숨김'],['yes','표시']].forEach(function(o){var op=document.createElement('option');op.value=o[0];op.textContent=o[1];kwSe.appendChild(op)});
+    kwSe.value=data.show_keywords===true?'yes':'no';kwSe.onchange=function(){data.show_keywords=(kwSe.value==='yes');changed()};kwSel.appendChild(kwSe);s.appendChild(kwSel);
     c=document.createElement('div');s.appendChild(c);
     function sortPubs(){data.publications.sort(function(a,b){return (b.year-a.year)||((b.month||0)-(a.month||0))})}
     sortPubs();

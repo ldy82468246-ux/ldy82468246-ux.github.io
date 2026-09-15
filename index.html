@@ -13,14 +13,21 @@
 <link rel="icon" href="images/favicon-32x32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="images/apple-touch-icon-180x180.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- Pretendard에는 한자가 없어, 한자 글리프만 본고딕(Noto Sans KR, OFL)으로 채운다. 쓰인 글자 범위만 내려받음 -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
 :root{
   --bg:#ffffff; --fg:#1f2328; --mute:#59636e; --line:#d1d9e0; --soft:#f6f8fa; --link:#0969da; --chip:#eff2f5;
+  /* 주제어 구름 4단계(1편 / 2 / 3–4 / 5+) — 본문 글자색과 같은 회청(슬레이트) 계열, 라이트·다크 모두 4.5:1 이상 */
+  --k1:#5c6f8a; --k2:#435470; --k3:#2b3a52; --k4:#16233a;
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI","Pretendard Variable",Pretendard,"Noto Sans KR",Helvetica,Arial,sans-serif;
+  --kf:"Pretendard Variable",Pretendard,"Noto Sans KR",sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
 }
 @media(prefers-color-scheme:dark){
-  :root{--bg:#0d1117;--fg:#e6edf3;--mute:#8d96a0;--line:#30363d;--soft:#161b22;--link:#4493f8;--chip:#21262d}
+  :root{--bg:#0d1117;--fg:#e6edf3;--mute:#8d96a0;--line:#30363d;--soft:#161b22;--link:#4493f8;--chip:#21262d;
+    --k1:#8b9bb4;--k2:#a6b3c8;--k3:#c2ccdb;--k4:#dfe5ee}
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
@@ -34,6 +41,7 @@ header nav a{color:var(--fg);font-size:14px;margin-left:18px}
 header nav a:hover{color:var(--link);text-decoration:none}
 
 .page{max-width:1012px;margin:0 auto;padding:32px 24px 80px;display:grid;grid-template-columns:256px 1fr;gap:40px}
+main{min-width:0}
 
 .prof img{width:100%;max-width:256px;aspect-ratio:4/5;border-radius:10px;object-fit:cover;border:1px solid var(--line);display:block}
 .prof h1{font-size:24px;font-weight:600;margin:16px 0 0;line-height:1.25}
@@ -65,6 +73,39 @@ main p{margin:0 0 12px}
 .pub .m{color:var(--mute);font-size:13px;margin-top:4px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
 .pub .m b{font-weight:500;color:var(--fg)}
 .pub .m .tag{font-family:var(--mono);font-size:11px;background:var(--chip);padding:1px 6px;border-radius:4px}
+.pub .kws{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.pub .kws button{font:inherit;font-family:var(--kf);font-size:12px;line-height:1.4;color:var(--mute);background:transparent;border:1px solid var(--line);border-radius:2em;padding:1px 9px;cursor:pointer}
+.pub .kws button:hover{color:var(--fg);border-color:var(--mute)}
+.pub .kws button.on{color:var(--bg);background:var(--link);border-color:var(--link)}
+.filt{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:0 0 6px;font-size:14px}
+.filt b{font-weight:600;font-family:var(--kf)}
+.filt .n{color:var(--mute);font-size:13px}
+.filt .x{margin-left:auto;font:inherit;font-size:13px;background:transparent;border:1px solid var(--line);border-radius:6px;padding:2px 10px;color:var(--fg);cursor:pointer}
+.filt .x:hover{border-color:var(--mute)}
+.pubs.filtering .yr{display:none}
+.pubs.filtering .pub:not(.hit){display:none}
+.pubs.filtering .btn{display:none}
+
+/* 주제어 구름 */
+.kc{position:relative;border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.kc svg{display:block;width:100%;height:auto;font-family:var(--kf)}
+.kc text{cursor:pointer;transition:opacity .15s}
+.kc text.c1{fill:var(--k1)} .kc text.c2{fill:var(--k2)} .kc text.c3{fill:var(--k3)} .kc text.c4{fill:var(--k4)}
+.kc text:hover,.kc text:focus{text-decoration:underline;text-underline-offset:.12em;outline:none}
+.kc.hl text:not(.on){opacity:.18}
+.kc text.sel{text-decoration:underline;text-underline-offset:.12em}
+.kc .tip{position:absolute;z-index:3;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.12);pointer-events:none;max-width:300px}
+.kc .tip b{font-weight:600;font-family:var(--kf)}
+.kc .tip .e{color:var(--mute);font-size:12px}
+.kc .lg{position:absolute;right:10px;bottom:8px;display:flex;gap:8px;align-items:center;font-size:11px;color:var(--mute);pointer-events:none;font-family:var(--mono)}
+.kc .lg i{display:inline-block;width:8px;height:8px;border-radius:2px}
+.kc-alt{margin:8px 0 0;font-size:12.5px;color:var(--mute)}
+.kc-alt button{font:inherit;font-size:12.5px;color:var(--link);background:none;border:0;padding:0;cursor:pointer}
+.kc-alt button:hover{text-decoration:underline}
+.kc-list{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:5px}
+.kc-list li button{font:inherit;font-family:var(--kf);font-size:12.5px;background:var(--chip);border:1px solid transparent;border-radius:2em;padding:2px 10px;color:var(--fg);cursor:pointer}
+.kc-list li button:hover{border-color:var(--mute)}
+.kc-list li button b{font-weight:500;color:var(--mute);margin-left:4px;font-family:var(--mono);font-size:11px}
 .yr{font-family:var(--mono);font-size:12px;color:var(--mute);margin:18px 0 0;letter-spacing:.04em}
 .yr:first-child{margin-top:0}
 .btn{display:inline-block;margin-top:14px;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:5px 14px;font:inherit;font-size:14px;color:var(--fg);cursor:pointer}
@@ -82,6 +123,7 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
   .prof .bio,.prof ul{grid-column:1/-1;margin-top:4px}
   .sticky{position:static}header nav{display:none}
   .list li{grid-template-columns:1fr;gap:2px}
+  .kc .lg{display:none}
 }
 </style>
 </head>
@@ -89,7 +131,7 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
 
 <header><div class="in">
   <a class="n" href="#" id="hdr-name">Dong-Yun Lee</a>
-  <nav><a href="#about">About</a><a href="#education">Education</a><a href="#positions">Positions</a><a href="#publications">Publications</a><a href="#presentations">Presentations</a><a href="#contact">Contact</a></nav>
+  <nav><a href="#about">About</a><a href="#keywords">Keywords</a><a href="#education">Education</a><a href="#positions">Positions</a><a href="#publications">Publications</a><a href="#presentations">Presentations</a><a href="#contact">Contact</a></nav>
 </div></header>
 
 <div class="page">
@@ -109,6 +151,62 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
     link:'<svg viewBox="0 0 16 16"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25Zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0Z"/></svg>'
   };
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+  /* ---------- 주제어 구름 (라이브러리 없음) ----------
+     words: [{t:주제어, c:논문 수, en:영문}] — 크기는 논문 수, 배치는 나선형 충돌 회피, 매번 같은 모양 */
+  var KF='"Pretendard Variable",Pretendard,"Noto Sans KR",sans-serif';
+  function seeded(s){return function(){s=(s*9301+49297)%233280;return s/233280}}
+  function buildCloud(host,words,onPick){
+    var W=host.clientWidth||668, narrow=W<520, H=narrow?380:290, scale=narrow?.86:1;
+    var max=Math.max.apply(null,words.map(function(w){return w.c}));
+    var ctx=document.createElement('canvas').getContext('2d');
+    var rnd=seeded(7), placed=[], PAD=4;
+    words.forEach(function(w){
+      var fs=Math.round((13+(max>1?(w.c-1)/(max-1):0)*33)*scale);
+      var fw=w.c>=3?700:w.c>=2?600:500;
+      ctx.font=fw+' '+fs+'px '+KF;
+      var tw=ctx.measureText(w.t).width*1.04+2, th=fs*1.22;
+      var a0=rnd()*Math.PI*2, ok=false;
+      for(var i=0;i<3000&&!ok;i++){
+        var t=i*.12, r=1.15*t;
+        var x=W/2+r*Math.cos(t+a0)*1.75, y=H/2+r*Math.sin(t+a0)*.8;
+        var bx=x-tw/2-PAD, by=y-th/2-PAD, bw=tw+PAD*2, bh=th+PAD*2;
+        if(bx<4||by<4||bx+bw>W-4||by+bh>H-4)continue;
+        var hit=false;
+        for(var j=0;j<placed.length;j++){var p=placed[j];if(bx<p.x+p.w&&p.x<bx+bw&&by<p.y+p.h&&p.y<by+bh){hit=true;break}}
+        if(!hit){placed.push({x:bx,y:by,w:bw,h:bh});w.x=x;w.y=y;w.fs=fs;w.fw=fw;ok=true}
+      }
+      w.ok=ok;
+    });
+    var h='<svg viewBox="0 0 '+W+' '+H+'" role="list" aria-label="논문 주제어">';
+    words.forEach(function(w,i){if(!w.ok)return;
+      var lv=w.c>=5?4:w.c>=3?3:w.c>=2?2:1;
+      h+='<text role="listitem" tabindex="0" data-i="'+i+'" class="c'+lv+'" x="'+w.x.toFixed(1)+'" y="'+w.y.toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="'+w.fs+'" font-weight="'+w.fw+'">'+esc(w.t)+'</text>';
+    });
+    h+='</svg><div class="tip" hidden></div><div class="lg"><i style="background:var(--k1)"></i>1편 <i style="background:var(--k2)"></i>2 <i style="background:var(--k3)"></i>3–4 <i style="background:var(--k4)"></i>5+</div>';
+    host.innerHTML=h;
+    var tip=host.querySelector('.tip');
+    host.querySelectorAll('text').forEach(function(el){
+      var w=words[+el.getAttribute('data-i')];
+      el.addEventListener('mousemove',function(ev){
+        tip.innerHTML='<b>'+esc(w.t)+'</b> · '+w.c+'편'+(w.en?'<div class="e">'+esc(w.en)+'</div>':'')+'<div class="e">누르면 관련 논문만 보기</div>';
+        tip.hidden=false;
+        var r=host.getBoundingClientRect(),x=ev.clientX-r.left+12,y=ev.clientY-r.top+14;
+        if(x+tip.offsetWidth>host.clientWidth-6)x=x-tip.offsetWidth-24;
+        if(y+tip.offsetHeight>host.clientHeight-6)y=y-tip.offsetHeight-24;
+        tip.style.left=x+'px';tip.style.top=y+'px';
+        host.classList.add('hl');el.classList.add('on');
+      });
+      el.addEventListener('mouseleave',function(){tip.hidden=true;host.classList.remove('hl');el.classList.remove('on')});
+      el.addEventListener('click',function(){onPick(w.t)});
+      el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();onPick(w.t)}});
+    });
+  }
+  // 구름 상자의 너비가 바뀌면(창 크기, 모바일 회전 등) 다시 그린다
+  var redrawCloud=null,rzTimer;
+  function scheduleRedraw(){clearTimeout(rzTimer);rzTimer=setTimeout(function(){if(redrawCloud)redrawCloud()},150)}
+  window.addEventListener('resize',scheduleRedraw);
+  var cloudRO=window.ResizeObserver?new ResizeObserver(scheduleRedraw):null;
 
   function render(d){
     var p=d.profile||{};
@@ -130,10 +228,23 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
       (links.length?'<li>'+ICON.link+'<span>'+links.join(' · ')+'</span></li>':'')+
       '</ul>';
 
+    var pubs=(d.publications||[]).slice().sort(function(a,b){return (b.year-a.year)||((b.month||0)-(a.month||0))});
+    pubs.forEach(function(q,i){q._i=i;q._kw=(q.keywords||[]).map(function(k){return String(k).trim()}).filter(Boolean)});
+    var cnt={},enOf={};
+    pubs.forEach(function(q){q._kw.forEach(function(k,j){cnt[k]=(cnt[k]||0)+1;var e=(q.keywords_en||[])[j];if(!enOf[k]&&e)enOf[k]=e})});
+    var words=Object.keys(cnt).map(function(k){return {t:k,c:cnt[k],en:enOf[k]||''}}).sort(function(a,b){return b.c-a.c||a.t.localeCompare(b.t,'ko')});
+
     var h='';
     h+='<section id="about"><h2>About</h2>'+(d.about||[]).map(function(t){return '<p>'+esc(t)+'</p>'}).join('');
     if(d.interests&&d.interests.length)h+='<p style="margin-top:16px"><b style="font-weight:600">Research interests</b></p><ul class="kw">'+d.interests.map(function(k){return '<li>'+esc(k)+'</li>'}).join('')+'</ul>';
     h+='</section>';
+
+    if(words.length){
+      h+='<section id="keywords"><h2>Keywords</h2><div class="kc" id="kc"></div>'+
+         '<div class="kc-alt"><button type="button" id="kc-toggle">목록으로 보기</button></div>'+
+         '<ul class="kc-list" id="kc-list" hidden>'+words.map(function(w){return '<li><button type="button" data-k="'+esc(w.t)+'">'+esc(w.t)+'<b>'+w.c+'</b></button></li>'}).join('')+'</ul></section>';
+    }
+    var navK=document.querySelector('nav a[href="#keywords"]');if(navK)navK.hidden=!words.length;
 
     function list(id,title,items){
       if(!items||!items.length)return '';
@@ -143,7 +254,6 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
     h+=list('education','Education',d.education);
     h+=list('positions','Positions',d.positions);
 
-    var pubs=(d.publications||[]).slice().sort(function(a,b){return (b.year-a.year)||((b.month||0)-(a.month||0))});
     var vis=d.publications_visible||5, first=pubs.slice(0,vis), rest=pubs.slice(vis);
     function pubHtml(arr){
       var out='',y=null;
@@ -154,19 +264,20 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
         if(q.venue)m.push('<span><b>'+esc(q.venue)+'</b>'+(q.volume?' '+esc(q.volume):'')+(q.pages?', pp. '+esc(q.pages):'')+'</span>');
         if(q.type)m.push('<span class="tag">'+esc(q.type)+'</span>');
         if(q.pdf)m.push('<a href="'+esc(q.pdf)+'">PDF</a>');
-        out+='<div class="pub"><div class="t">'+t+'</div>'+(q.title_en?'<div class="en">'+esc(q.title_en)+'</div>':'')+'<div class="m">'+m.join('')+'</div></div>';
+        var kws=q._kw.length?'<div class="kws">'+q._kw.map(function(k){return '<button type="button" data-k="'+esc(k)+'">'+esc(k)+'</button>'}).join('')+'</div>':'';
+        out+='<div class="pub" data-i="'+q._i+'"><div class="t">'+t+'</div>'+(q.title_en?'<div class="en">'+esc(q.title_en)+'</div>':'')+'<div class="m">'+m.join('')+'</div>'+kws+'</div>';
       });
       return out;
     }
     if(pubs.length){
       h+='<section id="publications"><h2>Publications</h2>';
       if(d.publications_note)h+='<p style="color:var(--mute);font-size:14px">'+esc(d.publications_note)+'</p>';
-      h+='<div>'+pubHtml(first)+'</div>';
+      h+='<div class="filt" id="filt" hidden></div><div class="pubs" id="pubs"><div>'+pubHtml(first)+'</div>';
       if(rest.length){
         var y0=rest[rest.length-1].year,y1=rest[0].year;
         h+='<button class="btn" aria-expanded="false"><span class="o">Show '+rest.length+' more ('+y0+(y1!==y0?'–'+y1:'')+')</span><span class="c">Show less</span></button><div hidden>'+pubHtml(rest)+'</div>';
       }
-      h+='</section>';
+      h+='</div></section>';
     }
     h+=list('presentations','Presentations',d.presentations);
     var navP=document.querySelector('nav a[href="#presentations"]');if(navP)navP.hidden=!(d.presentations&&d.presentations.length);
@@ -177,8 +288,47 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
     document.getElementById('foot-l').textContent='© '+new Date().getFullYear()+' '+(p.name_en||p.name);
     document.getElementById('foot-r').innerHTML=(d.updated?'Last updated '+esc(d.updated)+' · ':'')+(p.github?'<a href="https://github.com/'+esc(p.github)+'/'+esc(p.github)+'.github.io">source</a>':'');
 
-    var b=document.querySelector('.btn');
-    if(b)b.addEventListener('click',function(){var box=b.nextElementSibling,on=box.hasAttribute('hidden');if(on)box.removeAttribute('hidden');else box.setAttribute('hidden','');b.setAttribute('aria-expanded',on?'true':'false')});
+    var b=document.querySelector('.btn'),moreBox=b?b.nextElementSibling:null;
+    if(b)b.addEventListener('click',function(){var on=moreBox.hasAttribute('hidden');if(on)moreBox.removeAttribute('hidden');else moreBox.setAttribute('hidden','');b.setAttribute('aria-expanded',on?'true':'false')});
+
+    /* ---------- 주제어로 논문 거르기 ---------- */
+    var pubsBox=document.getElementById('pubs'),filt=document.getElementById('filt'),active=null;
+    function applyFilter(k,scroll){
+      if(!pubsBox)return;
+      active=k;
+      var hits=0;
+      pubsBox.querySelectorAll('.pub').forEach(function(el){var q=pubs[+el.getAttribute('data-i')];var hit=!!k&&q._kw.indexOf(k)>=0;el.classList.toggle('hit',hit);if(hit)hits++;
+        el.querySelectorAll('.kws button').forEach(function(bt){bt.classList.toggle('on',!!k&&bt.getAttribute('data-k')===k)})});
+      pubsBox.classList.toggle('filtering',!!k);
+      if(k){
+        if(moreBox)moreBox.removeAttribute('hidden');
+        filt.innerHTML='<span>주제어 <b>'+esc(k)+'</b></span><span class="n">'+hits+'편</span><button type="button" class="x">전체 보기 ✕</button>';filt.hidden=false;
+        filt.querySelector('.x').addEventListener('click',function(){applyFilter(null)});
+        history.replaceState(null,'','#kw='+encodeURIComponent(k));
+        if(scroll)document.getElementById('publications').scrollIntoView({behavior:'smooth'});
+      }else{
+        filt.hidden=true;
+        if(moreBox){moreBox.setAttribute('hidden','');b.setAttribute('aria-expanded','false')}
+        if(/^#kw=/.test(location.hash))history.replaceState(null,'',location.pathname+location.search);
+      }
+      document.querySelectorAll('#kc text').forEach(function(el){el.classList.toggle('sel',!!k&&el.textContent===k)});
+    }
+    document.querySelectorAll('.kws button, #kc-list button').forEach(function(bt){bt.addEventListener('click',function(){var k=bt.getAttribute('data-k');var inList=!!bt.closest('.kws');applyFilter(active===k&&inList?null:k,!inList)})});
+    var kc=document.getElementById('kc'),lst=document.getElementById('kc-list'),tg=document.getElementById('kc-toggle');
+    if(kc){
+      tg.addEventListener('click',function(){var on=lst.hasAttribute('hidden');if(on){lst.removeAttribute('hidden');kc.setAttribute('hidden','');tg.textContent='구름으로 보기'}else{lst.setAttribute('hidden','');kc.removeAttribute('hidden');tg.textContent='목록으로 보기'}});
+      var allText=words.map(function(w){return w.t}).join(''),lastW=0;
+      var draw=function(){
+        if(kc.hidden||kc.clientWidth===lastW)return;lastW=kc.clientWidth;
+        buildCloud(kc,words,function(k){applyFilter(k,true)});
+        if(active)applyFilter(active,false);
+      };
+      redrawCloud=draw;
+      if(cloudRO){cloudRO.disconnect();cloudRO.observe(kc)}
+      var ready=(document.fonts&&document.fonts.load)?Promise.all([500,600,700].map(function(wt){return document.fonts.load(wt+' 20px "Noto Sans KR"',allText).catch(function(){})})).then(function(){return document.fonts.ready}):Promise.resolve();
+      ready.then(draw);
+      var m=/^#kw=(.+)$/.exec(location.hash);if(m){try{applyFilter(decodeURIComponent(m[1]),false)}catch(e){}}
+    }else{redrawCloud=null}
   }
 
   fetch('data.json?'+Date.now()).then(function(r){return r.json()}).then(render).catch(function(e){document.getElementById('main').innerHTML='<p>data.json을 불러오지 못했습니다.</p>';console.error(e)});

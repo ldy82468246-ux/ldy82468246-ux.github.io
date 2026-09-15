@@ -287,8 +287,14 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
         g.appendChild(field('링크 (KCI/DOI, 선택)',q.url,function(v){q.url=v},{ph:'https://…'}));
         g.appendChild(field('PDF 링크 (선택)',q.pdf,function(v){q.pdf=v},{ph:'files/paper.pdf 또는 https://…'}));
         bd.appendChild(g);
+        // 주제어: 쉼표로 구분해 입력하면 배열로 저장. 첫 화면의 Keywords 구름과 논문 아래 칩에 쓰인다
+        function splitKw(v){return v.split(/[,，、]/).map(function(x){return x.trim()}).filter(Boolean)}
+        g=document.createElement('div');g.className='row2';
+        g.appendChild(field('주제어 (쉼표로 구분)',(q.keywords||[]).join(', '),function(v){q.keywords=splitKw(v)},{ph:'聖骨, 眞骨, 진흥왕'}));
+        g.appendChild(field('영문 주제어 (같은 순서, 선택)',(q.keywords_en||[]).join(', '),function(v){q.keywords_en=splitKw(v)},{ph:'Seonggol, Jingol, King Jinheung'}));
+        bd.appendChild(g);
       },
-      function(){var d=new Date();return{year:d.getFullYear(),month:d.getMonth()+1,title:'',title_en:'',venue:'',volume:'',pages:'',type:'KCI',url:'',pdf:''}},
+      function(){var d=new Date();return{year:d.getFullYear(),month:d.getMonth()+1,title:'',title_en:'',venue:'',volume:'',pages:'',type:'KCI',url:'',pdf:'',keywords:[],keywords_en:[]}},
       function(){/* 연도/월 바뀌면 정렬은 저장 시점에 */}
     );
     var sortBtn=document.createElement('button');sortBtn.className='b';sortBtn.style.marginTop='8px';sortBtn.textContent='연도·월 순으로 다시 정렬';sortBtn.onclick=function(){sortPubs();redraw();changed()};

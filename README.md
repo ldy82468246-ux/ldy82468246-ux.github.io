@@ -9,7 +9,7 @@
 | 파일 | 역할 |
 |---|---|
 | `index.html` | 사이트 본체. `data.json`을 읽어서 화면을 그림 |
-| `data.json` | **모든 내용** (프로필, 소개, 학력, 경력, 논문, 연락처). 이것만 고치면 됨 |
+| `data.json` | **모든 내용** (프로필, 소개, 학력, 경력, 논문, 연락처). 이것만 고치면 됨. 논문마다 `keywords`(주제어)를 넣으면 첫 화면의 Keywords 구름과 논문 아래 칩에 자동 반영 |
 | `admin/index.html` | 관리 페이지. 폼으로 `data.json`을 편집하고 GitHub에 바로 저장 |
 | `images/profile.jpg` | 프로필 사진 |
 | `.nojekyll` | GitHub Pages가 Jekyll 처리를 건너뛰게 함 |

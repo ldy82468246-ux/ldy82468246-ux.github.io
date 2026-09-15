@@ -10,3 +10,7 @@ _site/
 .bundle/
 Gemfile.lock
 vendor/
+
+# 개인 자료 (실적 엑셀 등) — 공개 저장소에 올리지 않는다
+more_info/
+*.xlsx

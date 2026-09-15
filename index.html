@@ -169,6 +169,7 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
       h+='</section>';
     }
     h+=list('presentations','Presentations',d.presentations);
+    var navP=document.querySelector('nav a[href="#presentations"]');if(navP)navP.hidden=!(d.presentations&&d.presentations.length);
     var c=d.contact||{};
     h+='<section id="contact"><h2>Contact</h2><p>'+(p.email?'<a href="mailto:'+esc(p.email)+'">'+esc(p.email)+'</a><br>':'')+esc(String(c.address||'').trim()).replace(/\n/g,'<br>')+'</p></section>';
     document.getElementById('main').innerHTML=h;

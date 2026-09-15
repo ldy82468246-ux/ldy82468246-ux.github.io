@@ -169,7 +169,7 @@ footer .in{max-width:1012px;margin:0 auto;padding:20px 24px;display:flex;justify
       h+='</section>';
     }
     var c=d.contact||{};
-    h+='<section id="contact"><h2>Contact</h2><p>'+(p.email?'<a href="mailto:'+esc(p.email)+'">'+esc(p.email)+'</a><br>':'')+esc(c.address||'')+'</p></section>';
+    h+='<section id="contact"><h2>Contact</h2><p>'+(p.email?'<a href="mailto:'+esc(p.email)+'">'+esc(p.email)+'</a><br>':'')+esc(c.address||'').replace(/\n/g,'<br>')+'</p></section>';
     document.getElementById('main').innerHTML=h;
 
     document.getElementById('foot-l').textContent='© '+new Date().getFullYear()+' '+(p.name_en||p.name);

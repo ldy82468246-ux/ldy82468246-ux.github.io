@@ -296,7 +296,7 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
 
     // 연락처
     s=section('Contact · 연락처');
-    s.appendChild(field('주소',data.contact.address,function(v){data.contact.address=v}));
+    s.appendChild(field('주소 (줄바꿈 그대로 반영)',data.contact.address,function(v){data.contact.address=v},{area:true}));
 
     $('raw').value=JSON.stringify(data,null,2);
     preview();

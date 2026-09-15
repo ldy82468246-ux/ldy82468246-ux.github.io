@@ -222,7 +222,7 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
   function build(){
     $('forms').innerHTML='';
     data.profile=data.profile||{};data.about=data.about||[];data.interests=data.interests||[];
-    data.education=data.education||[];data.positions=data.positions||[];data.publications=data.publications||[];data.contact=data.contact||{};
+    data.education=data.education||[];data.positions=data.positions||[];data.presentations=data.presentations||[];data.publications=data.publications||[];data.contact=data.contact||{};
     var p=data.profile;
 
     // 프로필
@@ -293,6 +293,16 @@ summary small{font-weight:400;color:var(--mute);margin-left:auto;font-size:12px}
     );
     var sortBtn=document.createElement('button');sortBtn.className='b';sortBtn.style.marginTop='8px';sortBtn.textContent='연도·월 순으로 다시 정렬';sortBtn.onclick=function(){sortPubs();redraw();changed()};
     s.appendChild(sortBtn);
+
+    // 학회 발표 — 학력·경력과 같은 구조(기간 / 내용 / 부가 설명)
+    function talkFields(it,bd,upd){
+      bd.appendChild(field('연월',it.period,function(v){it.period=v;upd()},{ph:'2025.10'}));
+      bd.appendChild(field('발표 제목',it.title,function(v){it.title=v;upd()}));
+      bd.appendChild(field('학술대회 · 주최 · 장소 (선택, 줄바꿈 가능)',it.sub,function(v){it.sub=v},{ph:'제00회 신라사학회 학술대회, 경주',area:true,rows:2}));
+    }
+    s=section('Presentations · 학회 발표','위에서부터 표시 순서');
+    c=document.createElement('div');s.appendChild(c);itemList(c,data.presentations,simpleLabel,talkFields,simpleNew);
+
 
     // 연락처
     s=section('Contact · 연락처');

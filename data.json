@@ -105,6 +105,20 @@
     {
       "year": 2026,
       "month": 8,
+      "title": "신라 聖骨·眞骨 용례의 재검토",
+      "title_en": "A Reexamination of the Attestations of Seonggol and Jingol in Silla",
+      "venue": "역사와경계",
+      "volume": "135",
+      "pages": "1-29",
+      "type": "KCI",
+      "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003381075",
+      "pdf": "",
+      "keywords": [],
+      "keywords_en": []
+    },
+    {
+      "year": 2026,
+      "month": 8,
       "title": "신라 眞興王代 聖骨 성립설과 眞智王 廢位論의 재검토",
       "title_en": "A Reexamination of the Theory of Silla Seonggol Formation in King Jinheung’s Reign and the Theory of King Jinji’s Dethronement",
       "venue": "백산학보",
@@ -432,7 +446,7 @@
   "contact": {
     "address": "부산대학교 사학과, 부산광역시 금정구 부산대학로 63번길 2\n부산대학교 인문사회융합인재양성사업(HUSS)단"
   },
-  "updated": "2026-09-15",
+  "updated": "2026-09-22",
   "presentations": [
     {
       "period": "26.07.14.",
